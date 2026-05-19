@@ -23,6 +23,17 @@ app.get('/user',function(req,res){
     });
 });
 
+app.get('/students',function(req,res){
+    const students=[
+        {name:"Ayaz", marks:85},
+        {name:"Ali", marks:32},
+        {name:"Zara", marks:91},
+        {name:"Umer", marks:45},
+        {name:"Sara", marks:28},
+    ];
+    res.json(students);
+});
+
 
 
 app.listen(3000,function(){
