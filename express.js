@@ -1,5 +1,7 @@
 const express = require('express');
 const app = express();
+app.use(express.json());
+
 
 app.get('/',function (req,res){
     res.send("welcome to my Express Server!");
@@ -59,6 +61,16 @@ app.get('/student/search',function(req,res){
 
 });
 
+
+app.post('/students',function(req,res){
+    let newStudent = req.body;
+    console.log(newStudent);
+    res.json({
+        message:"student recived!",
+        student:newStudent
+    });
+
+});
 
 
 app.listen(3000,function(){
