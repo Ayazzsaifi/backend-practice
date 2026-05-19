@@ -34,6 +34,31 @@ app.get('/students',function(req,res){
     res.json(students);
 });
 
+app.get('/search',function(req,res){
+    let name=req.query.name;
+    res.json({
+        message:"you search for :" +name
+    });
+});
+
+app.get('/student/search',function(req,res){
+    const students = [
+        {name: "Ayaz", marks: 85},
+        {name: "Ali", marks: 32},
+        {name: "Zara", marks: 91},
+        {name: "Umar", marks: 45},
+        {name: "Sara", marks: 28}
+    ];
+
+    let searchName= req.query.name;
+    let result= students.filter(function(student){
+        return student.name=== searchName;
+    });
+
+    res.json(result);
+
+});
+
 
 
 app.listen(3000,function(){
