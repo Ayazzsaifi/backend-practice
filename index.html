@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Full Stack App</title>
+    </head>
+    <body>
+        <h1 id="message">Loading....</h1>
+        <button id="fetchbtn">Get message from server</button>
+
+
+        <script>
+            let btn=document.getElementById("fetchbtn");
+            let messageDisplay =document.getElementById("message");
+
+            
+            btn.addEventListener("click",function(){
+                fetch("http://localhost:3000/api/message")
+                .then(function(response){
+                    return response.json();
+
+                })
+                .then(function(data){
+                    messageDisplay.innerHTML=data.message;
+                });
+            });
+
+        </script>
+    </body>
+</html>
