@@ -8,3 +8,4 @@
 - Middleware with app.use()
 - CORS - connecting frontend to backend
 - Full stack connection using fetch()
+-JWT Tokens (AUTH)
