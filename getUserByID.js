@@ -5,15 +5,25 @@ const users = [
 ];
 
 async function getUser(id) {
-    const user = users.find(u => u.id === id);
-    return user;
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            const user = users.find(u => u.id === id);
+            if (user){
+            resolve (user);}
+
+            else{
+                reject("user not found");
+            }
+        },2000)
+
+    })
 }
 
 async function main() {
     try {
-        const user = await getUser(1);
+        const user = await getUser(99);
         console.log(user);
-    } catch(err) {
+    } catch (err) {
         console.log(err);
     }
 }
