@@ -6,7 +6,10 @@ function counting(){
 }
 
 const ans=counting();
+
 console.log(ans());
 console.log(ans());
 console.log(ans());
 console.log(ans());
+
+//date 22/06
