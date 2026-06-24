@@ -11,3 +11,5 @@
 -JWT Tokens (AUTH)
 -MongoDB
 -project online course platform
+-fixing more bugs 
+-doing leatcode
