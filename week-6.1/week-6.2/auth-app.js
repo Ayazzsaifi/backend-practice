@@ -1,0 +1,7 @@
+const express = require('express');
+const jwt=require('jsonwebtoken');
+
+const app=express();
+app.use(express.json());// to take the input from body 
+
+
