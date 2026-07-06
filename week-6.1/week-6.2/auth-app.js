@@ -126,8 +126,6 @@ app.get("/me", auth, logger, function (req, res) {
         username: foundUser.username,
         password:foundUser.password
     })
-
-
 })
 
 
