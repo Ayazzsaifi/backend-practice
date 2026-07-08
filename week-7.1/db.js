@@ -1,14 +1,14 @@
 const mongoose = require("mongoose");
-const schema = mongoose.schema;
+const Schema = mongoose.Schema;
 const ObjectId = mongoose.ObjectId;
 
-const user = new schema({
+const user = new Schema({
     name: String,
     email: String,
     password: String
 });
 
-const todo = new schema({
+const todo = new Schema({
     title: String,
     done: Boolean,
     userID: ObjectId

@@ -1,7 +1,12 @@
 const express = require("express");
 const app = express();
-const { userModel, todoModel } = require("./db")
+const { userModel, todoModel } = require("./db");
+const jwt = require("JsonWebToken");
+const { default: mongoose } = require("mongoose");
+const JWT_SECRET = "fjhs765786543"
+app.use(express.json());
 
+mongoose.connect("mongodb+srv://admin-cobra:oxFYJB6tG8ViXzbn@cluster0.xqoxshq.mongodb.net/todo-List-01")
 
 
 
@@ -10,16 +15,88 @@ app.post("/signup", async function (req, res) {
     const password = req.body.password;
     const name = req.body.name;
 
-    await userModel.insert({
+    await userModel.create({
         email: email,
         password: password,
         name: name
     })
 
+    res.json({
+        message: "youre logged in"
+    })
+
 });
 
-app.post("/signin", function (req, res) { });
+app.post("/signin", async function (req, res) {
+    const email = req.body.email;
+    const password = req.body.password;
 
-app.post("/todo", function (req, res) { });
+    const user = await userModel.findOne({
+        email: email,
+        password: password
 
-app.get("/todos", function (req, res) { });
+    })
+
+    console.log(user);
+
+    if (user) {
+        const token = jwt.sign({
+            id: user._id.toString()
+        }, JWT_SECRET);
+        res.json({
+            token: token
+        });
+    }
+
+    else {
+        res.status(403).json({
+            error: "incorrect credintaials"
+        })
+    }
+});
+
+app.post("/todo", auth, async  function (req, res) {
+    const userId=req.userId;
+    const title=req.body.title;
+
+    const newTodo= await todoModel.create({
+        title,
+        userId
+    })
+
+    res.json({
+        message:"Todo Added"
+    })
+    
+});
+
+app.get("/todos", async function (req, res) {
+    const userId=req.userId;
+
+    const todos=await todoModel.findOne({
+        userId:userId
+    })
+
+    res.json({
+        todos
+    })
+ 
+});
+
+
+function auth (req, res, next) {
+    const token = req.headers.token
+    const decodedData = jwt.verify(token, JWT_SECRET);
+
+    if (decodedData){
+        req.userId=decodedData.id;
+        next();
+    }
+    else{
+        res.status(403).json({
+            err:"incorrect credintials"
+        })
+    }
+}
+
+app.listen(3000);
