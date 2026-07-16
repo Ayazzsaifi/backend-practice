@@ -1,3 +1,4 @@
+const bcrypt=require("bcrypt")
 const express = require("express");
 const app = express();
 const { userModel, todoModel } = require("./db");
@@ -14,6 +15,11 @@ app.post("/signup", async function (req, res) {
     const email = req.body.email;
     const password = req.body.password;
     const name = req.body.name;
+
+      // hasing password
+
+    const hassedPassword= await bcrypt.hash(password,5);
+    console.log(hassedPassword);
 
     await userModel.create({
         email: email,
